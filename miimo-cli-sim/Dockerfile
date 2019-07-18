@@ -16,4 +16,4 @@ COPY bin ${app_dir}/bin
 COPY conf ${app_dir}/conf
 RUN cp ${src_dir}/target/miimo-cli-sim.jar ${lib_dir}/.
 
-RUN rm -R ${source_project}
+RUN rm -R ${src_dir}
