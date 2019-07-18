@@ -1,4 +1,4 @@
-FROM openkbs/jdk-mvn
+FROM openkbs/jdk-mvn-py3
 ENV src_dir=$HOME/mqtt-src
 ENV app_dir=$HOME/app
 ENV lib_dir=$HOME/app/lib
