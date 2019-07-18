@@ -5,7 +5,7 @@ ENV lib_dir=$HOME/app/lib
 
 RUN mkdir ${src_dir}
 #COPY --chown=developer:developer src ${src_dir}
-COPY src ${src_dir}
+COPY src ${src_dir}/src
 #COPY --chown=developer:developer pom.xml ${src_dir}
 COPY pom.xml ${src_dir}
 RUN cd ${src_dir};mvn install
