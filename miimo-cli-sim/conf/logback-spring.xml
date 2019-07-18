@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<configuration scan="false" debug="true">
+  <contextName>SpringBoot</contextName>
+  <property name="LOG_HOME" value="/opt/hpe/miimo-cli-sim/logs/"/>
+  
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- 文字列で、System.outかSystem.errを指定します。-->
+    <target>System.out</target>
+    <!-- withJansiプロパティにtrueを指定すると、Jansiライブラリが有効化され、Windowsマシン上でANSIカラーコードがサポートされるようになります。 -->
+    <withJansi>false</withJansi>
+    <!--OutputStreamAppenderと同じです。-->
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} [%-30thread] %class{36}.%M %L %-6level %m%n</pattern>
+       <immediateFlush>true</immediateFlush>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/miimo-cli-sim.log</file>
+    <append>true</append>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS}	[%-5level]	%m%n</pattern>
+      <immediateFlush>true</immediateFlush>
+      <!--ログファイルの先頭にPatternを出力する-->
+      <outputPatternAsHeader>false</outputPatternAsHeader>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 切り替えるときのログファイル名を指定します。 -->
+      <fileNamePattern>${LOG_HOME}/miimo-cli-sim.log.%d</fileNamePattern>
+      <!-- 削除せずに保持しておくアーカイブファイルの最大数を指定します。 -->
+      <maxHistory>7</maxHistory>
+      <!-- trueを指定した場合、アペンダーの開始時に古いアーカイブを削除します。-->
+      <cleanHistoryOnStart>true</cleanHistoryOnStart>
+    </rollingPolicy>
+    <!-- prudentモードでは、複数のJVMから同じファイルに行うIO操作を効果的にシリアライズします。 -->
+    <prudent>false</prudent>
+  </appender>
+  
+  <appender name="TRAN_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/miimo-cli-sim-tran.log</file>
+    <append>true</append>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS}	%m%n</pattern>
+      <immediateFlush>true</immediateFlush>
+      <!--ログファイルの先頭にPatternを出力する-->
+      <outputPatternAsHeader>false</outputPatternAsHeader>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 切り替えるときのログファイル名を指定します。 -->
+      <fileNamePattern>${LOG_HOME}/miimo-cli-sim-tran.log.%d</fileNamePattern>
+      <!-- 削除せずに保持しておくアーカイブファイルの最大数を指定します。 -->
+      <maxHistory>7</maxHistory>
+      <!-- trueを指定した場合、アペンダーの開始時に古いアーカイブを削除します。-->
+      <cleanHistoryOnStart>true</cleanHistoryOnStart>
+    </rollingPolicy>
+    <!-- prudentモードでは、複数のJVMから同じファイルに行うIO操作を効果的にシリアライズします。 -->
+    <prudent>false</prudent>
+  </appender>  
+
+	<logger name="com.kddi.tmc.pushasg" level="DEBUG" additivity="true">
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<logger name="org.springframework" level="OFF" additivity="true" />
+
+	<logger name="o.s.boot" level="OFF" additivity="true" />
+	
+	<logger name="ApplicationLog" level="DEBUG" additivity="true">
+		<appender-ref ref="FILE" />
+	</logger>
+	
+	<logger name="TranLog" level="TRACE" additivity="true">
+		<appender-ref ref="TRAN_APPENDER" />
+	</logger>	
+
+    <!-- root要素はlevelのみ指定可能 -->
+    <root level="INFO">
+      <appender-ref ref="STDOUT" />
+    </root>
+    
+</configuration>

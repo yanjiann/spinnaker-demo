@@ -1,0 +1,36 @@
+# http port
+server.port: 18081
+
+broker-topic-mappling-list:
+  default:
+    push-topic: /ip_push/req/{DEV_UNIQ_ID}/broker-m1
+    sub-topic: /ip_push/resp/{DEV_UNIQ_ID}/broker-m1
+    command-topic: /amp/req/{DEV_UNIQ_ID}/broker-m1
+    resp-topic: /amp/resp/{DEV_UNIQ_ID}/broker-m1
+    broker-url: ssl://192.168.153.128:8883
+#    business-cd: business-chen
+#    app-id: business-chen-app-001:on,business-chen-app-002:on
+
+    
+      
+ 
+  
+# tls:
+#   keystore:
+#     file:myKeystore.jks
+#     pass:ippush
+#   truststore:
+#     file:cacerts
+#     pass:changeit
+
+tls_keystore_file:
+  /client.jks
+
+tls_keystore_pass:
+  ippush
+
+tls_truststore_file:
+  /newcacerts
+
+tls_truststore_pass:
+  changeit

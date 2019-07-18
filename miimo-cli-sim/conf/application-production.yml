@@ -1,0 +1,21 @@
+# IN-CSEが提供するMQTTブローカーの接続URL
+cse_broker_url: ssl://p-PolicyNet-CSE-M16507223:8883
+# Mazda PoCのMQTTブローカーの接続URL
+mzd_broker_url: tcp://localhost:9100
+
+# 自身（IN-AE）のID（必須）  
+# CSEに対してAE registrationした結果から取得
+IN-AE-ID: C001227
+
+# NOTIFY Requestのpi（parrentId）と、Mazda PoC側処理がCANデータの種類を判別するための識別子（現状はトピック）とのマッピングリスト
+# 前者をkey、後者をvalueのハッシュ形式で指定する
+# ※補足
+# CANデータは種類事に別のcontainer下のcontentInstanceに格納され、格納されるとNOTIFY Requestが通知される
+# NOTIFY Requestの中にはpiにcontainerのIDが指定されており、これをデータの種類の判別に利用できる
+# Mazda PoC側の処理はデータ種別で処理が変わるため、piをMazda PoCが種別を識別できる識別子に変換してMazda PoC側に渡す
+topic-mappling-list:
+  ri001229: /topic/m0
+  ri001230: /topic/m1
+  ri001231: /topic/m3
+  ri001232: /topic/m4
+  ri001233: /topic/m5
