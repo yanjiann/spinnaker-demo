@@ -1,5 +1,11 @@
 package com.kddi.tmc.pushasg;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +35,7 @@ import com.kddi.tmc.pushasg.common.util.MiiContextSupport;
 import com.kddi.tmc.pushasg.common.vo.MiiContext;
 import com.kddi.tmc.pushasg.service.CmdSubscriberProcessable;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class MiimoSimStartMain implements CommandLineRunner {
     private static final Logger logger = LoggerFactory
             .getLogger(MiimoSimStartMain.class);
@@ -136,11 +142,38 @@ public class MiimoSimStartMain implements CommandLineRunner {
         }
     }
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        SpringApplication.run(new Object[] { MiimoSimStartMain.class },
 //                args);
 //
-//    }
+		  logger.debug("Program Started!");
+		    // サーバーソケットを生成＆待機
+		    try (ServerSocket server = new ServerSocket()) {
+		      server.bind(new InetSocketAddress("localhost", 8080));
+		      try (Socket socket = server.accept();
+		          BufferedReader reader = new BufferedReader(
+		            new InputStreamReader(socket.getInputStream()));
+		          PrintWriter writer = new PrintWriter(
+		            socket.getOutputStream(), true)) {
+		        // 入力を受け取ったら、大文字に変換の上で応答
+		        while (true) {
+		          String line = reader.readLine();
+		          if (line.equals("\\q")) {
+		            break;
+		          }
+		          writer.println(line.toUpperCase());
+		          System.out.println(line);
+		        }
+		      }
+		    } catch (Exception e) {
+		      e.printStackTrace();
+			  logger.error(e.getMessage());
+
+		    }
+		    
+		    logger.debug("End!");    
+    
+    }
 
     @Service
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
