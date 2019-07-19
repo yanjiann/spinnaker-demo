@@ -29,7 +29,7 @@ import com.kddi.tmc.pushasg.common.util.MiiContextSupport;
 import com.kddi.tmc.pushasg.common.vo.MiiContext;
 import com.kddi.tmc.pushasg.service.CmdSubscriberProcessable;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class MiimoSimStartMain implements CommandLineRunner {
     private static final Logger logger = LoggerFactory
             .getLogger(MiimoSimStartMain.class);
@@ -136,11 +136,11 @@ public class MiimoSimStartMain implements CommandLineRunner {
         }
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(new Object[] { MiimoSimStartMain.class },
-                args);
-
-    }
+//    public static void main(String[] args) {
+//        SpringApplication.run(new Object[] { MiimoSimStartMain.class },
+//                args);
+//
+//    }
 
     @Service
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)

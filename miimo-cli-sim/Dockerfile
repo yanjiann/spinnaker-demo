@@ -19,4 +19,4 @@ RUN cp ${src_dir}/target/miimo-cli-sim.jar ${lib_dir}/.
 RUN rm -R ${src_dir}
 #CMD /bin/bash
 WORKDIR ${lib_dir}
-CMD java -jar ./miimo-cli-sim.jar
+CMD java --cp ./miimo-cli-sim.jar
