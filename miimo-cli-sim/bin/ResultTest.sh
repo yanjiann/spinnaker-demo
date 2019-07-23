@@ -1,9 +1,9 @@
 #!/bin/sh
 
-LOG_FILE="/home/develope/miimo-cli-sim/log/miimo-cli-sim.log"
+ret=`curl 35.238.138.26:8080`
 
-if [[ -e ${LOG_FILE} ]]; then
-    exit 0
+if [[ -z ${ret} ]]; then
+    exit -1
 fi
 
-exit -1
+exit 0
